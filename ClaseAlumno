@@ -1,0 +1,90 @@
+using System;
+using MySql.Data.MySqlClient;
+namespace mysqlConnect
+	
+{
+	
+	public class Alumnos : MySQL
+	{
+		public Alumnos()
+		{
+		}
+		public void mostrarTodos(){
+                        this.abrirConexion();
+            MySqlCommand myCommand = new MySqlCommand(this.querySelect(), MyConnection);
+            MySqlDataReader myReader = myCommand.ExecuteReader();        
+                while (myReader.Read()){
+                    string id = myReader["id"].ToString();
+                    string codigo = myReader["codigo"].ToString();
+                    string nombre = myReader["nombre"].ToString();
+                     string email = myReader["email"].ToString();
+                     string telefono = myReader["telefono"].ToString();
+                    Console.WriteLine("ID: " + id + " Código: " + codigo + " Nombre: " + nombre + "email:"+ email + "Telefono:"+telefono);
+                                                  
+               }
+                        
+            myReader.Close();
+                        myReader = null;
+            myCommand.Dispose();
+                        myCommand = null;
+                        this.cerrarConexion();
+                }
+		//Insertar Registros
+                
+		public void insertarRegistroNuevo(string codigo, string nombre){
+                        this.abrirConexion();
+                        string sql = "INSERT INTO `Registro` (`codigo`, `nombre`) VALUES ('" + codigo + "', '" + nombre + "',)";
+                        this.ejecutarComando(sql);
+                        this.cerrarConexion();
+                }
+                //Editar Registros
+                public void editarCodigoRegistro(string id, string codigo){
+                        this.abrirConexion();
+                        string sql = "UPDATE `Registro` SET `codigo`='" + codigo + "' WHERE (`id`='" + id + "')";
+                        this.ejecutarComando(sql);
+                        this.cerrarConexion();
+                }
+                
+                public void editarNombreRegistro(string id, string nombre){
+                        this.abrirConexion();
+                        string sql = "UPDATE `Registro` SET `nombre`='" + nombre + "' WHERE (`id`='" + id + "')";
+                        this.ejecutarComando(sql);
+                        this.cerrarConexion();
+                }
+                public void editaremailRegistro(string id, string email)
+               {
+                   this.abrirConexion();
+                   string sql = "UPDATE `Registro` SET `nombre`='" + email + "' WHERE (`id`='" + id + "')";
+                   this.ejecutarComando(sql);
+                   this.cerrarConexion();
+               }
+               public void editartelefonoRegistro(string id, string telefono)
+                {
+                    this.abrirConexion();
+                    string sql = "UPDATE `Registro` SET `nombre`='" + telefono + "' WHERE (`id`='" + id + "')";
+                    this.ejecutarComando(sql);
+                    this.cerrarConexion();
+                }
+                //Eliminar Registros po ID
+                public void eliminarRegistroPorId(string id){
+                        this.abrirConexion();
+                        string sql = "DELETE FROM `Registro` WHERE (`id`='" + id + "')";
+                        this.ejecutarComando(sql);
+                        this.cerrarConexion();
+                }
+                private int ejecutarComando(string sql){
+                        MySqlCommand myCommand = new MySqlCommand(sql,this.MyConnection);
+                        int afectadas = myCommand.ExecuteNonQuery();
+                        myCommand.Dispose();
+                        myCommand = null;
+                        return afectadas;
+                }
+                //Seleccion De La tabla
+                private string querySelect(){
+                        return "SELECT * " +
+                           "FROM Registro";
+                }
+        }
+}
+
+
