@@ -1,0 +1,28 @@
+using System;
+using MySql.Data.MySqlClient;
+
+namespace mysqlConnect
+{
+	
+	public class MySQL {
+        protected MySqlConnection MyConnection;
+		public MySQL()
+		{
+		}
+ protected void abrirConexion(){
+                        string connectionString =
+                          "Server=localhost;" +
+                          "Database=Registro;" +
+                          "User ID=user_escuela;" +
+                          "Password=your_password;" +
+                          "Pooling=false;";
+               this.MyConnection = new MySqlConnection(connectionString);
+               this.MyConnection.Open();
+                }
+                
+                protected void cerrarConexion(){
+                        this.MyConnection.Close(); 
+                        this.MyConnection = null;
+                }
+        }
+}
