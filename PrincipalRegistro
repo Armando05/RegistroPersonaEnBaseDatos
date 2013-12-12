@@ -1,0 +1,22 @@
+using System;
+
+namespace mysqlConnect
+{
+	class MainClass
+		
+	{
+		public static void Main(string[] args)
+		{
+		 Alumnos alumnos = new Alumnos();
+                        alumnos.insertarRegistroNuevo("123456","Jose");
+                        alumnos.editarNombreRegistro("19", "que tal");
+                        alumnos.editaremailRegistro("bobairreloko@hotmail","jkn");
+                        alumnos.editartelefonoRegistro("3378898989","687");
+                        alumnos.mostrarTodos();
+                        alumnos.editarCodigoRegistro("34", "56789");
+                        alumnos.mostrarTodos();
+                        alumnos.eliminarRegistroPorId("23");
+                        alumnos.mostrarTodos();
+		}
+	}
+}
